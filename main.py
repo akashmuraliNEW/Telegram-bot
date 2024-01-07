@@ -19,16 +19,16 @@ import subprocess
 import requests
 
 #Enter your bot credentials
-api_id = 123456
-api_hash = 'your-api-hash'
-bot_token = 'your-bot-token'
+api_id = 8192282
+api_hash = '990a85e4f02364ddf5927728e75450b5'
+bot_token = '6744138293:AAGJWRItOqab04liuujwo9ZpwgaW7voGkao'
 
 #YouTube Data API v3 key
-api_key = 'your-yt-api-key'
+api_key = 'AIzaSyB3QMbm5iz-0-2ahs5IDY5ABdzyKxqMOME'
 
 #Spotify API credentials
-client_id = 'your-client=id'
-client_secret = 'your-client-secret'
+client_id = '5ddcddccf1f94a41bd2970641998ab9e'
+client_secret = '32681713fe2045a7b9b5ae5fba8bff86'
 
 #Unsplash API access key
 UNSPLASH_ACCESS_KEY = 'your-unsplash-api-key'
