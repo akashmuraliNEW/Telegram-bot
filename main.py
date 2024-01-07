@@ -101,7 +101,7 @@ video_ydl = yt_dlp.YoutubeDL({
 
 
 def send_message(chat_id, message):
-    app.send_message(chat_id, message)
+   await app.send_message(chat_id, message)
 
 
 def send_upload_progress(chat_id, message_id):
@@ -182,7 +182,71 @@ def extract_youtube_music_url(output):
 
 
 
+@app.on_message(filters.command(['song', 's']) & ~filters.private & ~filters.channel)
+async def song(client, message):
+   #if message.chat.id in MUSIC_CHAT:
+    user_id = message.from_user.id 
+    user_name = message.from_user.first_name 
+    rpk = "["+user_name+"](tg://user?id="+str(user_id)+")"
+    query = ''
+    for i in message.command[1:]:
+        query += ' ' + str(i)
+    print(query)
+    m = await message.reply(f"**ѕєαrchíng чσur ѕσng...!\n {query}**")
+    ydl_opts = {
+         "format": "bestaudio[ext=m4a]",
+         "ratelimit": "1000000",
+    }
+    try:
+        results = YoutubeSearch(query, max_results=1).to_dict()
+        link = f"https://youtube.com{results[0]['url_suffix']}"
+        title = results[0]["title"][:40]       
+        thumbnail = results[0]["thumbnails"][0]
+        thumb_name = f'thumb{title}.jpg'
+        thumb = requests.get(thumbnail, allow_redirects=True)
+        open(thumb_name, 'wb').write(thumb.content)
+        performer = f"[Rebekah]" 
+        duration = results[0]["duration"]
+        url_suffix = results[0]["url_suffix"]
+        views = results[0]["views"]
+    except Exception as e:
+        print(str(e))
+        return await m.edit("**𝙵𝙾𝚄𝙽𝙳 𝙽𝙾𝚃𝙷𝙸𝙽𝙶 𝙿𝙻𝙴𝙰𝚂𝙴 𝙲𝙾𝚁𝚁𝙴𝙲𝚃 𝚃𝙷𝙴 𝚂𝙿𝙴𝙻𝙻𝙸𝙽𝙶 𝙾𝚁 𝙲𝙷𝙴𝙲𝙺 𝚃𝙷𝙴 𝙻𝙸𝙽𝙺**")
+                
+    await m.edit("**dσwnlσαdíng чσur ѕσng...!**")
+    try:
+        with YoutubeDL(ydl_opts) as ydl:
+            info_dict = ydl.extract_info(link, download=False)
+            audio_file = ydl.prepare_filename(info_dict)
+            ydl.process_info(info_dict)
 
+        cap = f'🎶 𝐓𝐈𝐓𝐋𝐄 ›› {title}\n𝐃𝐔𝐑𝐀𝐓𝐈𝐎𝐍 ›› {duration}'
+        secmul, dur, dur_arr = 1, 0, duration.split(':')
+        for i in range(len(dur_arr)-1, -1, -1):
+            dur += (int(dur_arr[i]) * secmul)
+            secmul *= 60
+        await message.reply_audio(
+            audio_file,
+            caption=cap,            
+            quote=False,
+            title=title,
+            duration=dur,
+            reply_to_message_id=message.id,
+            performer=performer,
+            thumb=thumb_name
+        )            
+        await m.delete()
+    except Exception as e:
+        await m.edit("**🚫 𝙴𝚁𝚁𝙾𝚁 🚫**")
+        print(e)
+    try:
+        os.remove(audio_file)
+        os.remove(thumb_name)
+    except Exception as e:
+        print(e)
+   #else:
+        # await message.reply_text(f"<b>Hᴇʏ {message.from_user.mention}❤️... Group is needs to be verified before using Song feature.Contact owner to verify @HELL_GaM</b>")
+        
 
 @app.on_message(filters.command("start"))
 async def start_command(client, message):
@@ -263,11 +327,11 @@ async def send_status(chat_id, status):
     await app.send_message(chat_id, status)
 
 
-@app.on_message(filters.command("song"))
+@app.on_message(filters.command("music"))
 async def song_command(client, message):
     try:
         chat_id = message.chat.id
-        await send_status(chat_id, "Searching for the song...")
+        a = await send_status(chat_id, "Searching for the song...")
         query = message.text.split(" ", 1)[1]
         results = search_youtube(query)
 
