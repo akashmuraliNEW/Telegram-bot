@@ -23,6 +23,12 @@ from youtube_search import YoutubeSearch
 from youtubesearchpython import SearchVideos
 from yt_dlp import YoutubeDL
 from motor.motor_asyncio import AsyncIOMotorClient
+
+#database
+Dbclient = AsyncIOMotorClient('mongodb+srv://spotify:spotify@cluster0.tmcsezs.mongodb.net/?retryWrites=true&w=majority')
+Cluster = Dbclient['Cluster0']
+Data = Cluster['users']
+
 #Enter your bot credentials
 api_id = 8192282
 api_hash = '990a85e4f02364ddf5927728e75450b5'
@@ -254,6 +260,8 @@ async def song(client, message):
 
 @app.on_message(filters.command("start"))
 async def start_command(client, message):
+    user_id = message.from_user.id   
+    if not await Data.find_one({'id': user_id}): await Data.insert_one({'id': user_id}) 
     await message.reply_text('**Hello, I am a Music downloader bot.Use /s or /song {song_name} To download songs,will be adding download support for other social medias(insta,twitter,tiktok,fb...)')
 
 
