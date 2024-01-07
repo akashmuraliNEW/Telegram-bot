@@ -17,6 +17,11 @@ import yt_dlp
 import os
 import subprocess
 import requests
+from youtube_search import YoutubeSearch
+from youtubesearchpython import SearchVideos
+from youtube_search import YoutubeSearch
+from youtubesearchpython import SearchVideos
+from yt_dlp import YoutubeDL
 
 #Enter your bot credentials
 api_id = 8192282
