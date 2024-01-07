@@ -182,7 +182,7 @@ def extract_youtube_music_url(output):
 
 
 
-@app.on_message(filters.command(['song', 's']) & ~filters.private & ~filters.channel)
+@app.on_message(filters.command(['song', 's']))
 async def song(client, message):
    #if message.chat.id in MUSIC_CHAT:
     user_id = message.from_user.id 
