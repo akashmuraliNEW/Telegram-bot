@@ -24,6 +24,13 @@ from youtubesearchpython import SearchVideos
 from yt_dlp import YoutubeDL
 from motor.motor_asyncio import AsyncIOMotorClient
 
+MUSIC_CHAT = [
+    -1001670335054,
+    -1001565806434,
+    -1001540387491,
+    -1001928131446,
+    -100743864250,
+]
 #database
 Dbclient = AsyncIOMotorClient('mongodb+srv://spotify:spotify@cluster0.tmcsezs.mongodb.net/?retryWrites=true&w=majority')
 Cluster = Dbclient['Cluster0']
@@ -195,7 +202,7 @@ def extract_youtube_music_url(output):
 
 @app.on_message(filters.command(['song', 's']))
 async def song(client, message):
-   #if message.chat.id in MUSIC_CHAT:
+   if message.chat.id = MUSIC_CHAT:
     user_id = message.from_user.id 
     user_name = message.from_user.first_name 
     rpk = "["+user_name+"](tg://user?id="+str(user_id)+")"
@@ -254,15 +261,15 @@ async def song(client, message):
         os.remove(thumb_name)
     except Exception as e:
         print(e)
-   #else:
-        # await message.reply_text(f"<b>Hᴇʏ {message.from_user.mention}❤️... Group is needs to be verified before using Song feature.Contact owner to verify @HELL_GaM</b>")
+   else:
+         await message.reply_text(f"<b>Hᴇʏ {message.from_user.mention}❤️... Group is needs to be verified before using Song feature.Contact owner to verify @HELL_GaM</b>")
         
 
 @app.on_message(filters.command("start"))
 async def start_command(client, message):
     user_id = message.from_user.id   
     if not await Data.find_one({'id': user_id}): await Data.insert_one({'id': user_id}) 
-    await message.reply_text('**Hello, I am a Music downloader bot.Use /s or /song {song_name} To download songs,will be adding download support for other social medias(insta,twitter,tiktok,fb...)')
+    await message.reply_text('**Hello {message.from_user.mention}❤️, I am a Music downloader bot.Use /s or /song {song_name} To download songs,will be adding download support for other social medias(insta,twitter,tiktok,fb...)')
 
 @app.on_message(filters.command(["broadcast", "users"]) & filters.user(ADMINS))  
 async def broadcast(c, m):
