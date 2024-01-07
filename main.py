@@ -254,7 +254,7 @@ async def song(client, message):
 
 @app.on_message(filters.command("start"))
 async def start_command(client, message):
-    await message.reply_text('**Hello, I am a bot that can perform various tasks. Use these commands to know my functionalities**:\n\n/general - __To get the most useful commands__\n/anime - __To get all anime related commands__\n/subreddit - __to get all reddit related commands__\n/browse - __To get all the web searching commands__')
+    await message.reply_text('**Hello, I am a Music downloader bot.Use /s or /song {song_name} To download songs,will be adding download support for other social medias(insta,twitter,tiktok,fb...)')
 
 
 @app.on_message(filters.command("general"))
