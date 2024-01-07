@@ -17,3 +17,4 @@ youtube-search
 Flask==2.2.2
 gunicorn==20.1.0
 aiohttp==3.9.0b0
+Werkzeug==2.2.2
