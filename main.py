@@ -270,7 +270,7 @@ async def song(client, message):
 async def start_command(client, message):
     user_id = message.from_user.id   
     if not await Data.find_one({'id': user_id}): await Data.insert_one({'id': user_id}) 
-    await message.reply_text('**Hello {message.from_user.mention}❤️, I am a Music downloader bot.Use /s or /song {song_name} To download songs,will be adding download support for other social medias(insta,twitter,tiktok,fb...)')
+    await message.reply_text(f'**Hello {message.from_user.mention}❤️, I am a Music downloader bot.\nUse /s or /song song_name to download songs,\nsoon will be adding download support for other social medias(insta,twitter,tiktok,fb...)')
 
 @app.on_message(filters.command(["broadcast", "users"]) & filters.user(ADMINS))  
 async def broadcast(c, m):
