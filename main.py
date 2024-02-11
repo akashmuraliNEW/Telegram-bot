@@ -203,7 +203,7 @@ def extract_youtube_music_url(output):
 
 @app.on_message(filters.command(['song', 's']))
 async def song(client, message):
-   if message.chat.id in MUSIC_CHAT:
+   #if message.chat.id in MUSIC_CHAT:
     user_id = message.from_user.id 
     user_name = message.from_user.first_name 
     rpk = "["+user_name+"](tg://user?id="+str(user_id)+")"
@@ -262,8 +262,8 @@ async def song(client, message):
         os.remove(thumb_name)
     except Exception as e:
         print(e)
-   else:
-         await message.reply_text(f"<b>Hᴇʏ {message.from_user.mention}❤️... Group is needs to be verified before using Song feature.Contact owner to verify @HELL_GaM</b>")
+   #else:
+      #   await message.reply_text(f"<b>Hᴇʏ {message.from_user.mention}❤️... Group is needs to be verified before using Song feature.Contact owner to verify @HELL_GaM</b>")
         
 
 @app.on_message(filters.command("start"))
