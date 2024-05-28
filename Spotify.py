@@ -8,6 +8,7 @@ from yt_dlp import YoutubeDL
 import os, wget
 import random
 import shutil
+LOG_CHANNEL = int(-1001587722715)
 
 client_id = 'd3a0f15a75014999945b5628dca40d0a'
 client_secret = 'e39d1705e35c47e6a0baf50ff3bb587f'
